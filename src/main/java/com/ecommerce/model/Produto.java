@@ -1,54 +1,59 @@
 package com.ecommerce.model;
 
+import com.ecommerce.Enum.TipoProduto;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+
+
 @Table(name = "produto")
 @Entity(name = "Produto")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
 public class Produto {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name="nome")
+    @Column(name = "nome")
     private String nome;
 
-    @Column(name="descricao")
+    @Column(name = "descricao")
     private String descricao;
 
     @Column(name = "preco")
-    private double preco;
+    private float preco;
 
-    @Column(name="quantidade")
+    @Column(name = "quantidade")
     private int quantidade;
 
-    @Column(name="foto")
+    @Column(name = "foto")
     private String foto;
 
-    @Column(name="categoria")
-    private String categoria;
+    @Column(name="tipo_produto")
+    private String tipoProduto;
 
-    public Produto(int id, String nome, String descricao, double preco, int quantidade, String foto, String categoria) {
+
+    public Produto(Long id, String nome, String descricao, float preco, int quantidade, String foto, TipoProduto tipoProduto) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.quantidade = quantidade;
         this.foto = foto;
-        this.categoria = categoria;
+        this.tipoProduto = tipoProduto.toString();
     }
 
     public Produto() {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,11 +73,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
+    public float getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 
@@ -92,23 +97,24 @@ public class Produto {
         this.foto = foto;
     }
 
-    public String getCategoria() {return categoria;}
+    public String getTipoProduto() {
+        return tipoProduto;
+    }
 
-    public void setCategoria(String categoria) {this.categoria = categoria;}
-
+    public void setTipoProduto(String tipoProduto) {
+        this.tipoProduto = tipoProduto;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Produto produto = (Produto) o;
-        return id == produto.id && Double.compare(preco, produto.preco) == 0 && quantidade == produto.quantidade && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(foto, produto.foto);
+        return Float.compare(preco, produto.preco) == 0 && quantidade == produto.quantidade && Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(foto, produto.foto) && Objects.equals(tipoProduto, produto.tipoProduto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, descricao, preco, quantidade, foto, categoria);
+        return Objects.hash(id, nome, descricao, preco, quantidade, foto, tipoProduto);
     }
-
-
 }

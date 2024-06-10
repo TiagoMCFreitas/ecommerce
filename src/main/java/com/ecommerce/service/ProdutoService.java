@@ -14,13 +14,22 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public Produto salvar(Produto produto) {
+        return produtoRepository.save(produto);
+    }
+    public Produto alterar(Produto produto) {
         return this.produtoRepository.save(produto);
     }
-    public Produto alterar(Produto produto) {return this.produtoRepository.save(produto);}
-    public void deletar(long id){this.produtoRepository.deleteById(id);}
-    public List<Produto> pegarTodosProduto(){
+
+    public void deletar(long id) {
+        this.produtoRepository.deleteById(id);
+    }
+
+    public List<Produto> pegarTodosProduto() {
         return this.produtoRepository.findAll();
     }
-    public Produto pegarProdutoPorId(int id) {return this.produtoRepository.findById(id);}
+
+    public Produto pegarProdutoPorId(Long id) {
+        return this.produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    }
 
 }
