@@ -17,6 +17,8 @@ import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/item")
+@CrossOrigin(origins="*")
+
 public class ItemController {
   @Autowired
     private ItemService itemService;
