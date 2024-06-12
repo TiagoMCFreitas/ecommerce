@@ -22,17 +22,21 @@ public class Usuario {
     @Column(name="email")
     private String email;
 
+    @Column(name="senha")
+    private String senha;
+
     @Column(name="telefone")
     private String telefone;
 
     @Column(name="tipo_usuario")
     private String tipoUsuario;
 
-    public Usuario(Long id, String nome, String cpf, String email, String telefone, TipoUsuario tipoUsuario) {
+    public Usuario(Long id, String nome, String cpf, String email, String senha, String telefone, TipoUsuario tipoUsuario) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+        this.senha = senha;
         this.telefone = telefone;
         this.tipoUsuario = tipoUsuario.toString();
     }
@@ -87,17 +91,20 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public String getSenha() {return this.senha;}
+    public void setSenha(String senha) {this.senha = senha;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) && Objects.equals(nome, usuario.nome) && Objects.equals(cpf, usuario.cpf) && Objects.equals(email, usuario.email) && Objects.equals(telefone, usuario.telefone) && Objects.equals(tipoUsuario, usuario.tipoUsuario);
+        return Objects.equals(id, usuario.id) && Objects.equals(nome, usuario.nome) && Objects.equals(cpf, usuario.cpf) && Objects.equals(email, usuario.email) && Objects.equals(senha, usuario.senha) && Objects.equals(telefone, usuario.telefone) && Objects.equals(tipoUsuario, usuario.tipoUsuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, cpf, email, telefone, tipoUsuario);
+        return Objects.hash(id, nome, cpf, email, senha, telefone, tipoUsuario);
     }
 }
 

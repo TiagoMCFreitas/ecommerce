@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.DTO.LoginDTO;
 import com.ecommerce.model.Usuario;
 import com.ecommerce.service.UsuarioService;
 import jakarta.transaction.Transactional;
@@ -43,4 +44,8 @@ public class UsuarioController {
         this.usuarioService.deletar(id);
     }
 
+    @PostMapping("/login")
+    public boolean login(@RequestBody LoginDTO login) {
+        return this.usuarioService.fazerLogin(login.getEmail(),login.getSenha());
+    }
 }

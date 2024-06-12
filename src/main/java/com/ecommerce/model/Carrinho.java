@@ -17,9 +17,13 @@ public class Carrinho {
     @JoinColumn(name="id_usuario")
     private Usuario usuario;
 
-    public Carrinho(Long id, Usuario usuario, List<Item> items) {
+    @Column(name="carrinho_fechado")
+    private boolean carrinhoFechado;
+
+    public Carrinho(Long id, Usuario usuario,boolean carrinhoFechado) {
         this.id = id;
         this.usuario = usuario;
+        this.carrinhoFechado = carrinhoFechado;
     }
 
     public Carrinho() {}
@@ -29,12 +33,12 @@ public class Carrinho {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Carrinho carrinho = (Carrinho) o;
-        return Objects.equals(id, carrinho.id) && Objects.equals(usuario, carrinho.usuario) ;
+        return Objects.equals(id, carrinho.id) && Objects.equals(usuario, carrinho.usuario) && Objects.equals(carrinhoFechado, carrinho.carrinhoFechado) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, usuario);
+        return Objects.hash(id, usuario,carrinhoFechado);
     }
 
     public Long getId() {
