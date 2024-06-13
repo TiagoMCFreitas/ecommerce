@@ -15,12 +15,11 @@ import com.ecommerce.repository.CarrinhoRepository;
 
 @Service
 public class CarrinhoService {
+
      @Autowired
     private CarrinhoRepository carrinhoRepository;
      @Autowired
      private ProdutoRepository produtoRepository;
-     @Autowired
-     private UsuarioRepository usuarioRepository;
 
     public Carrinho salvar(Carrinho carrinho) {
 

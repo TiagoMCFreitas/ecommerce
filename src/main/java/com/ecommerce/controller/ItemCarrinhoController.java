@@ -4,60 +4,60 @@ import java.util.List;
 
 import com.ecommerce.DTO.ItemPostDTO;
 import com.ecommerce.model.Carrinho;
+import com.ecommerce.model.ItemCarrinho;
 import com.ecommerce.model.Produto;
 import com.ecommerce.service.CarrinhoService;
 import com.ecommerce.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.ecommerce.model.Item;
-import com.ecommerce.service.ItemService;
+import com.ecommerce.service.ItemCarrinhoService;
 
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping("/api/item")
+@RequestMapping("/api/item/carrinho")
 @CrossOrigin(origins="*")
 
-public class ItemController {
+public class ItemCarrinhoController {
   @Autowired
-    private ItemService itemService;
+    private ItemCarrinhoService itemCarrinhoService;
   @Autowired
     private ProdutoService produtoService;
   @Autowired
     private CarrinhoService carrinhoService;
 
     @GetMapping("/")
-    public List<Item> listar() {
-        return this.itemService.pegarTodosItem();
+    public List<ItemCarrinho> listar() {
+        return this.itemCarrinhoService.pegarTodosItem();
     }
 
     @GetMapping("/{id}")
-    public Item buscarPorId(@PathVariable(value = "id") Long id) {
-        return this.itemService.pegarItemPorId(id);
+    public ItemCarrinho buscarPorId(@PathVariable(value = "id") Long id) {
+        return this.itemCarrinhoService.pegarItemPorId(id);
     }
 
     @PostMapping("/")
     @Transactional
-    public Item salvar(@RequestBody ItemPostDTO item) {
+    public ItemCarrinho salvar(@RequestBody ItemPostDTO item) {
         Produto produto = produtoService.pegarProdutoPorId(item.getId_produto());
         Carrinho carrinho = carrinhoService.pegarCarrinhoPorId(item.getId_carrinho());
-        Item itemInserir = new Item();
-        itemInserir.setProduto(produto);
-        itemInserir.setCarrinho(carrinho);
-        itemInserir.setQuantidade(item.getQuantidade());
-        return this.itemService.salvar(itemInserir);
+        ItemCarrinho itemCarrinhoInserir = new ItemCarrinho();
+        itemCarrinhoInserir.setProduto(produto);
+        itemCarrinhoInserir.setCarrinho(carrinho);
+        itemCarrinhoInserir.setQuantidade(item.getQuantidade());
+        return this.itemCarrinhoService.salvar(itemCarrinhoInserir);
     }
 
     @PutMapping("/")
     @Transactional
-    public Item alterar(@RequestBody Item item) {
-        return this.itemService.alterar(item);
+    public ItemCarrinho alterar(@RequestBody ItemCarrinho itemCarrinho) {
+        return this.itemCarrinhoService.alterar(itemCarrinho);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public void deletar(@PathVariable("id") long id) {
-        this.itemService.deletar(id);
+        this.itemCarrinhoService.deletar(id);
     }
 }

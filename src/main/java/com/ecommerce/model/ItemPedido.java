@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@Table(name="item")
-@Entity(name="Item")
+@Table(name="item_pedido")
+@Entity(name="ItemPedido")
 
-public class Item {
+public class ItemPedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,37 +19,35 @@ public class Item {
     private int quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "id_carrinho", nullable = false)
+    @JoinColumn(name = "id_pedido", nullable = false)
     @JsonBackReference
-    private Carrinho carrinho;
+    private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name="id_produto", nullable = false)
     private Produto produto;
 
-
-    public Item(Long id, int quantidade, Carrinho carrinho, Produto produto) {
-        this.id = id;
-        this.quantidade = quantidade;
-        this.carrinho = carrinho;
-        this.produto = produto;
+    public ItemPedido() {
     }
 
-    public Item() {
-
+    public ItemPedido(Long id, int quantidade, Pedido pedido, Produto produto) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.pedido = pedido;
+        this.produto = produto;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return quantidade == item.quantidade && Objects.equals(id, item.id) && Objects.equals(carrinho, item.carrinho) && Objects.equals(produto, item.produto);
+        ItemPedido that = (ItemPedido) o;
+        return quantidade == that.quantidade && Objects.equals(id, that.id) && Objects.equals(pedido, that.pedido) && Objects.equals(produto, that.produto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantidade, carrinho, produto);
+        return Objects.hash(id, quantidade, pedido, produto);
     }
 
     public Long getId() {
@@ -67,12 +66,12 @@ public class Item {
         this.quantidade = quantidade;
     }
 
-    public Carrinho getCarrinho() {
-        return carrinho;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setCarrinho(Carrinho carrinho) {
-        this.carrinho = carrinho;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public Produto getProduto() {
