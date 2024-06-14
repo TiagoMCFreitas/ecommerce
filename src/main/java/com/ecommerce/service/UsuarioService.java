@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponentModule;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UsuarioService {
@@ -39,15 +41,21 @@ public class UsuarioService {
         return this.usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
-    public boolean fazerLogin(String email, String senha) {
+    public Usuario pegarUsuarioPorEmail(String email) {
+        return this.usuarioRepository.findByEmail(email);
+    }
+    public Usuario fazerLogin(String email, String senha) {
         String senhaBanco = this.usuarioRepository.senhaUsuario(email);
         HashAdapter adapter = new SHA256Hasher();
         String senhaEncriptada = adapter.hash(senha);
         if(!senhaBanco.isEmpty()){
-            return senhaBanco.equals(senhaEncriptada);
+            if(senhaBanco.equals(senhaEncriptada)){
+                return this.usuarioRepository.findByEmail(email);
+            }
         }else{
-            return false;
+            return null;
         }
+        return null;
     }
 
 }

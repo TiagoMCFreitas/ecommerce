@@ -6,12 +6,7 @@ import com.ecommerce.realizarRequisicoes.HTTP;
 import com.ecommerce.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

@@ -48,7 +48,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody LoginDTO login) {
+    public Usuario login(@RequestBody LoginDTO login) {
         return this.usuarioService.fazerLogin(login.getEmail(),login.getSenha());
     }
 }
