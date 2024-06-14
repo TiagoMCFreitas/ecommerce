@@ -1,23 +1,32 @@
 package com.ecommerce.service;
 
 import com.ecommerce.DTO.EnderecoDTO;
+import com.ecommerce.DTO.EnderecoPostDTO;
 import com.ecommerce.model.Endereco;
+import com.ecommerce.model.Usuario;
 import com.ecommerce.realizarRequisicoes.HTTP;
 import com.ecommerce.repository.EnderecoRepository;
+import com.ecommerce.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public Endereco salvar(Endereco endereco) {
-        return enderecoRepository.save(endereco);
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public Endereco salvar(EnderecoPostDTO endereco) {
+        Usuario usuario = usuarioRepository.findById(endereco.getId_usuario()).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        Endereco enderecoSavar = new Endereco(0L,endereco.getCep(), endereco.getRua(),endereco.getNumero(), endereco.getComplemento(), endereco.getBairro(), endereco.getCidade(),endereco.getUf(), usuario);
+        return enderecoRepository.save(enderecoSavar);
     }
 
     public Endereco buscarPorIdUsuario(Long id) {

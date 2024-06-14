@@ -13,16 +13,17 @@ public class Endereco {
     @Column(name="cep")
     private String cep;
 
-    @Column(name="logradouro")
-    private String logradouro;
+    @Column(name="rua")
+    private String rua;
+
+    @Column(name="bairro")
+    private String bairro;
 
     @Column(name="numero")
     private String numero;
 
     @Column(name="complemento")
     private String complemento;
-    @Column(name="bairro")
-    private String bairro;
 
     @Column(name="cidade")
     private String cidade;
@@ -62,12 +63,12 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getRua() {
+        return rua;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getNumero() {
@@ -115,18 +116,18 @@ public class Endereco {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Endereco endereco = (Endereco) o;
-        return Objects.equals(id, endereco.id) && Objects.equals(cep, endereco.cep) && Objects.equals(logradouro, endereco.logradouro) && Objects.equals(numero, endereco.numero) && Objects.equals(complemento, endereco.complemento) && Objects.equals(bairro, endereco.bairro) && Objects.equals(cidade, endereco.cidade) && Objects.equals(uf, endereco.uf) && Objects.equals(usuario, endereco.usuario);
+        return Objects.equals(id, endereco.id) && Objects.equals(cep, endereco.cep) && Objects.equals(rua, endereco.rua) && Objects.equals(numero, endereco.numero) && Objects.equals(complemento, endereco.complemento) && Objects.equals(bairro, endereco.bairro) && Objects.equals(cidade, endereco.cidade) && Objects.equals(uf, endereco.uf) && Objects.equals(usuario, endereco.usuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cep, logradouro, numero, complemento, bairro, cidade, uf, usuario);
+        return Objects.hash(id, cep, rua, numero, complemento, bairro, cidade, uf, usuario);
     }
 
-    public Endereco(Long id, String cep, String logradouro, String numero, String complemento, String bairro, String cidade, String uf, Usuario usuario) {
+    public Endereco(Long id, String cep, String rua, String numero, String complemento, String bairro, String cidade, String uf, Usuario usuario) {
         this.id = id;
         this.cep = cep;
-        this.logradouro = logradouro;
+        this.rua = rua;
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;

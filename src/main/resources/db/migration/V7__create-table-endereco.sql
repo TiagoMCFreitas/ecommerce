@@ -4,6 +4,7 @@ create table endereco (
     rua varchar not null,
     cidade varchar not null,
     uf varchar not null,
+    bairro varchar not null,
     numero varchar not null,
     complemento varchar not null,
     id_usuario integer not null,

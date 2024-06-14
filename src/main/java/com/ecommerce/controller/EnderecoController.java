@@ -1,6 +1,7 @@
 package com.ecommerce.controller;
 
 import com.ecommerce.DTO.EnderecoDTO;
+import com.ecommerce.DTO.EnderecoPostDTO;
 import com.ecommerce.model.Endereco;
 import com.ecommerce.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class EnderecoController {
         return enderecoService.buscarEnderecoCep(cep);
     }
 
-    @PostMapping()
-    public Endereco save(@RequestBody Endereco endereco) {
+    @PostMapping("/")
+    public Endereco save(@RequestBody EnderecoPostDTO endereco) {
         return enderecoService.salvar(endereco);
     }
 
