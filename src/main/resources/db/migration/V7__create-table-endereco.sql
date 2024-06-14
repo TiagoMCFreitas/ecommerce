@@ -7,5 +7,6 @@ create table endereco (
     numero varchar not null,
     complemento varchar not null,
     id_usuario integer not null,
+    ativo boolean default true,
     FOREIGN KEY (id_usuario) references usuario(id)
 );

@@ -6,5 +6,6 @@ create table produto
     preco      float,
     quantidade integer,
     foto       varchar,
-    tipo_produto varchar
+    tipo_produto varchar,
+    ativo boolean default true
 );
