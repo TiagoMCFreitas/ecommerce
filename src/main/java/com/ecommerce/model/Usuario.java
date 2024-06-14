@@ -2,6 +2,7 @@ package com.ecommerce.model;
 
 
 import com.ecommerce.Enum.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -22,6 +23,7 @@ public class Usuario {
     @Column(name="email")
     private String email;
 
+    @JsonBackReference
     @Column(name="senha")
     private String senha;
 
