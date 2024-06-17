@@ -41,13 +41,13 @@ public class CarrinhoService {
         return this.carrinhoRepository.findById(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
     }
 
-    public List<CarrinhoGetItensDTO> pegarCarrinhoPorUsuario(Long id_usuario){
-        Long id_carrinho = carrinhoRepository.findCarrinhoByUsuario(id_usuario);
-        List<CarrinhoGetItensDTO> itens = produtoRepository.findProdutosByCarrinhoId(id_carrinho);
+    public List<CarrinhoGetItensDTO> pegarItensCarrinhoPorUsuario(Long id_usuario){
+        Carrinho carrinho = carrinhoRepository.findCarrinhoByUsuario(id_usuario);
+        List<CarrinhoGetItensDTO> itens = produtoRepository.findProdutosByCarrinhoId(carrinho.getId());
         System.out.println(itens);
         return itens;
     }
-    public Long pegarIdCarrinhoPorUsuario(Long id_usuario){
+    public Carrinho pegarCarrinhoPorUsuario(Long id_usuario){
         return carrinhoRepository.findCarrinhoByUsuario(id_usuario);
     }
 }

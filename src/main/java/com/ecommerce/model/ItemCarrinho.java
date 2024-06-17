@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@Table(name="item")
-@Entity(name="Item")
+@Table(name="item_carrinho")
+@Entity(name="ItemCarrinho")
 
 public class ItemCarrinho {
     @Id

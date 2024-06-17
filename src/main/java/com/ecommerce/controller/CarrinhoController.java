@@ -6,7 +6,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.ecommerce.DTO.CarrinhoPostDTO;
+import com.ecommerce.Enum.TipoStatus;
+import com.ecommerce.model.Session;
 import com.ecommerce.model.Usuario;
+import com.ecommerce.service.SessionService;
 import com.ecommerce.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,31 +30,34 @@ public class CarrinhoController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private SessionService sessionService;
+
 
     @GetMapping("/")
     public List<Carrinho> listar() {
         return this.carrinhoService.pegarTodosCarrinho();
     }
 
-    @GetMapping("/{id_usuario}")
-    public ResponseEntity CarrinhoUsuario(@PathVariable Long id_usuario) {
+    @GetMapping("/{session_token}")
+    public ResponseEntity CarrinhoUsuario(@PathVariable String session_token) {
         Map<String, Object> jsonEnvio = new HashMap<>();
-        jsonEnvio.put("id_carrinho", carrinhoService.pegarIdCarrinhoPorUsuario(id_usuario));
-        jsonEnvio.put("itens", carrinhoService.pegarCarrinhoPorUsuario(id_usuario));
-
+        Session session = sessionService.getUserByIdSession(session_token);
+        Carrinho carrinho = carrinhoService.pegarCarrinhoPorUsuario(session.getUsuario().getId());
+        jsonEnvio.put("id_carrinho", carrinho.getId());
+        jsonEnvio.put("status" , carrinho.getStatus());
+        jsonEnvio.put("itens", carrinhoService.pegarItensCarrinhoPorUsuario(session.getUsuario().getId()));
         return ResponseEntity.ok(jsonEnvio);
     }
-//    @GetMapping("/{id}")
-//    public Carrinho buscarPorId(@PathVariable(value = "id") Long id) {
-//        return this.carrinhoService.pegarCarrinhoPorId(id);
-//    }
 
     @PostMapping("/")
     @Transactional
     public Carrinho salvar(@RequestBody CarrinhoPostDTO carrinho) {
-        Usuario usuario = usuarioService.pegarUsuarioPorId(carrinho.getId());
+        Session session = sessionService.getUserByIdSession(carrinho.getId());
+        Usuario usuario = usuarioService.pegarUsuarioPorId(session.getUsuario().getId());
         Carrinho carrinhoInserir = new Carrinho();
         carrinhoInserir.setUsuario(usuario);
+        carrinhoInserir.setStatus(TipoStatus.PENDENTE);
         return this.carrinhoService.salvar(carrinhoInserir);
 
     }

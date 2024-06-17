@@ -16,6 +16,7 @@ public class ItemCarrinhoService {
     public ItemCarrinho salvar(ItemCarrinho itemCarrinho) {
         return itemCarrinhoRepository.save(itemCarrinho);
     }
+
     public ItemCarrinho alterar(ItemCarrinho itemCarrinho) {
         return this.itemCarrinhoRepository.save(itemCarrinho);
     }

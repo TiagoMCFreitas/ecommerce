@@ -48,11 +48,11 @@ public class Carrinho {
         this.usuario = usuario;
     }
 
-    public TipoStatus getCarrinhoFechado() {
+    public TipoStatus getStatus() {
         return status;
     }
 
-    public void setCarrinhoFechado(TipoStatus carrinhoFechado) {
+    public void setStatus(TipoStatus carrinhoFechado) {
         this.status = carrinhoFechado;
     }
 

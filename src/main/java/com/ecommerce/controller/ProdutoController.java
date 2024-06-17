@@ -2,6 +2,9 @@ package com.ecommerce.controller;
 
 import com.ecommerce.model.Produto;
 import com.ecommerce.service.ProdutoService;
+import com.ecommerce.templateMethod.Produto.OrdenaPorCategoria;
+import com.ecommerce.templateMethod.Produto.OrdenaPorPrecoDesc;
+import com.ecommerce.templateMethod.Produto.OrdenaPorQuantidadeDesc;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +20,26 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping("/")
-    public List<Produto> listar() {
+    public List<Produto> listar(String tipoOrdenacao) throws Exception {
+        OrdenaPorPrecoDesc ordenacao = null;
+        OrdenaPorQuantidadeDesc ordenacaoQuantidade = null;
+        OrdenaPorCategoria  ordenacaoCategoria = null;
+        if(tipoOrdenacao==null){
+            return this.produtoService.pegarTodosProduto();
+        }
+        if(tipoOrdenacao.equals("categoria")){
+            ordenacaoCategoria = new OrdenaPorCategoria(this.produtoService);
+            return ordenacaoCategoria.listaProdutos();
+        }
+        if(tipoOrdenacao.equals("preco")){
+            ordenacao = new OrdenaPorPrecoDesc(this.produtoService);
+            return ordenacao.listaProdutos();
+        }
+        if(tipoOrdenacao.equals("quantidade")){
+            ordenacaoQuantidade = new OrdenaPorQuantidadeDesc(this.produtoService);
+            return ordenacaoQuantidade.listaProdutos();
+        }
+        assert ordenacao != null;
         return this.produtoService.pegarTodosProduto();
     }
 

@@ -2,14 +2,17 @@ package com.ecommerce.controller;
 
 import com.ecommerce.DTO.LoginDTO;
 import com.ecommerce.model.Usuario;
+import com.ecommerce.service.SessionService;
 import com.ecommerce.service.UsuarioService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -18,6 +21,9 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private SessionService sessionService;
 
     @GetMapping("/")
     public List<Usuario> listar() {
@@ -48,7 +54,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public Usuario login(@RequestBody LoginDTO login) {
-        return this.usuarioService.fazerLogin(login.getEmail(),login.getSenha());
+    public Map<String, Object> login(@RequestBody LoginDTO login) {
+        Map<String, Object> response = new HashMap<>();
+        Usuario usuario = this.usuarioService.fazerLogin(login.getEmail(),login.getSenha());
+        response.put("usuario", usuario);
+        response.put("session" , this.sessionService.getSessionByIdUser(usuario.getId()));
+
+        return response;
     }
 }
