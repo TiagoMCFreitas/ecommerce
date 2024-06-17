@@ -20,27 +20,25 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping("/")
-    public List<Produto> listar(String tipoOrdenacao) throws Exception {
-        OrdenaPorPrecoDesc ordenacao = null;
-        OrdenaPorQuantidadeDesc ordenacaoQuantidade = null;
-        OrdenaPorCategoria  ordenacaoCategoria = null;
-        if(tipoOrdenacao==null){
-            return this.produtoService.pegarTodosProduto();
-        }
-        if(tipoOrdenacao.equals("categoria")){
-            ordenacaoCategoria = new OrdenaPorCategoria(this.produtoService);
-            return ordenacaoCategoria.listaProdutos();
-        }
-        if(tipoOrdenacao.equals("preco")){
-            ordenacao = new OrdenaPorPrecoDesc(this.produtoService);
-            return ordenacao.listaProdutos();
-        }
-        if(tipoOrdenacao.equals("quantidade")){
-            ordenacaoQuantidade = new OrdenaPorQuantidadeDesc(this.produtoService);
-            return ordenacaoQuantidade.listaProdutos();
-        }
-        assert ordenacao != null;
+    public List<Produto> listar() throws Exception {
         return this.produtoService.pegarTodosProduto();
+    }
+
+    @GetMapping("/preco")
+    public List<Produto> listarPorPreco() throws Exception {
+        OrdenaPorPrecoDesc ordena = new OrdenaPorPrecoDesc(this.produtoService);
+        return ordena.listaProdutos();
+    }
+
+    @GetMapping("/categoria")
+    public List<Produto> listarPorCategoria() throws Exception {
+        OrdenaPorCategoria ordena = new OrdenaPorCategoria(this.produtoService);
+        return ordena.listaProdutos();
+    }
+    @GetMapping("/quantidade")
+    public List<Produto> listarPorQuantidade() throws Exception {
+        OrdenaPorQuantidadeDesc ordena = new OrdenaPorQuantidadeDesc(this.produtoService);
+        return ordena.listaProdutos();
     }
 
     @GetMapping("/{id}")
