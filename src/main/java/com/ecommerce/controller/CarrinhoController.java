@@ -11,6 +11,8 @@ import com.ecommerce.model.Session;
 import com.ecommerce.model.Usuario;
 import com.ecommerce.service.SessionService;
 import com.ecommerce.service.UsuarioService;
+import com.ecommerce.templateMethod.Carrinho.OrdenaPorStatus;
+import com.ecommerce.templateMethod.Carrinho.OrdenaPorUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +41,32 @@ public class CarrinhoController {
         return this.carrinhoService.pegarTodosCarrinho();
     }
 
+    @GetMapping("/status")
+    public List<Carrinho> listarPorStatus() throws Exception {
+        OrdenaPorStatus ordena = new OrdenaPorStatus(this.carrinhoService);
+        return ordena.listaCarrinhos();
+    }
+
+    @GetMapping("/usuario")
+    public List<Carrinho> listarPorUsuarios() throws Exception {
+        OrdenaPorUsuario ordena = new OrdenaPorUsuario(this.carrinhoService);
+        return ordena.listaCarrinhos();
+    }
+
     @GetMapping("/{session_token}")
     public ResponseEntity CarrinhoUsuario(@PathVariable String session_token) {
         Map<String, Object> jsonEnvio = new HashMap<>();
         Session session = sessionService.getUserByIdSession(session_token);
         Carrinho carrinho = carrinhoService.pegarCarrinhoPorUsuario(session.getUsuario().getId());
-        jsonEnvio.put("id_carrinho", carrinho.getId());
-        jsonEnvio.put("status" , carrinho.getStatus());
-        jsonEnvio.put("itens", carrinhoService.pegarItensCarrinhoPorUsuario(session.getUsuario().getId()));
+
+        if(carrinho != null){
+           jsonEnvio.put("id_carrinho", carrinho.getId());
+           jsonEnvio.put("status" , carrinho.getStatus());
+           jsonEnvio.put("itens", carrinhoService.pegarItensCarrinhoPorUsuario(session.getUsuario().getId()));
+       }else{
+            jsonEnvio.put("id_carrinho", null);
+        }
+
         return ResponseEntity.ok(jsonEnvio);
     }
 
