@@ -7,6 +7,7 @@ import com.ecommerce.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,6 +20,12 @@ public class EnderecoController {
     public Map<String, String> cep(@PathVariable(value = "cep") String cep) {
         return enderecoService.buscarEnderecoCep(cep);
     }
+
+    @GetMapping("/user/{session}")
+    public List<Endereco> buscarEnderecoUsuario(@PathVariable(value = "session") String session) {
+        return enderecoService.buscarPorSession(session);
+    }
+
 
     @PostMapping("/")
     public Endereco save(@RequestBody EnderecoPostDTO endereco) {

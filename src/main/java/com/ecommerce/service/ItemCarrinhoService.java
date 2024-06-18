@@ -1,5 +1,6 @@
 package com.ecommerce.service;
 
+import com.ecommerce.DTO.ItemCarrinhoAumentarDiminuirDTO;
 import com.ecommerce.model.ItemCarrinho;
 import com.ecommerce.repository.ItemCarrinhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,17 @@ public class ItemCarrinhoService {
         return itemCarrinhoRepository.save(itemCarrinho);
     }
 
+
     public ItemCarrinho alterar(ItemCarrinho itemCarrinho) {
-        return this.itemCarrinhoRepository.save(itemCarrinho);
+
+        if(itemCarrinho.getQuantidade() == 0){
+            System.out.println(itemCarrinho.getId());
+            this.itemCarrinhoRepository.deleteById(itemCarrinho.getId());
+        }else{
+            this.itemCarrinhoRepository.save(itemCarrinho);
+        }
+
+        return null;
     }
 
     public void deletar(long id) {
@@ -26,7 +36,7 @@ public class ItemCarrinhoService {
     }
 
     public List<ItemCarrinho> pegarTodosItem() {
-        return this.itemCarrinhoRepository.findAll();
+        return this.itemCarrinhoRepository.listAllItemCarrinho();
     }
 
     public ItemCarrinho pegarItemPorId(Long id) {

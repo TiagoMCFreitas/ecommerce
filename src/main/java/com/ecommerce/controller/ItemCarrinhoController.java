@@ -2,6 +2,7 @@ package com.ecommerce.controller;
 
 import java.util.List;
 
+import com.ecommerce.DTO.ItemCarrinhoAumentarDiminuirDTO;
 import com.ecommerce.DTO.ItemPostDTO;
 import com.ecommerce.model.Carrinho;
 import com.ecommerce.model.ItemCarrinho;
@@ -46,12 +47,14 @@ public class ItemCarrinhoController {
         itemCarrinhoInserir.setProduto(produto);
         itemCarrinhoInserir.setCarrinho(carrinho);
         itemCarrinhoInserir.setQuantidade(item.getQuantidade());
+        itemCarrinhoInserir.setAtivo(true);
         return this.itemCarrinhoService.salvar(itemCarrinhoInserir);
     }
 
     @PutMapping("/")
     @Transactional
     public ItemCarrinho alterar(@RequestBody ItemCarrinho itemCarrinho) {
+        System.out.println(itemCarrinho);
         return this.itemCarrinhoService.alterar(itemCarrinho);
     }
 

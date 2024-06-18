@@ -3,6 +3,7 @@ package com.ecommerce.service;
 import java.util.*;
 
 import com.ecommerce.DTO.CarrinhoGetItensDTO;
+import com.ecommerce.Enum.TipoStatus;
 import com.ecommerce.model.Produto;
 import com.ecommerce.repository.ProdutoRepository;
 import com.ecommerce.repository.UsuarioRepository;
@@ -39,6 +40,12 @@ public class CarrinhoService {
 
     public Carrinho pegarCarrinhoPorId(Long id) {
         return this.carrinhoRepository.findById(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
+    }
+
+    public void atualizarCarrinho (Carrinho carrinho){
+        carrinho.setStatus(TipoStatus.CONCLUIDO);
+
+        this.carrinhoRepository.save(carrinho);
     }
 
     public List<CarrinhoGetItensDTO> pegarItensCarrinhoPorUsuario(Long id_usuario){

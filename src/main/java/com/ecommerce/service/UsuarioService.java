@@ -58,6 +58,7 @@ public class UsuarioService {
             if(senhaBanco.equals(senhaEncriptada)){
                 Usuario usuario = this.usuarioRepository.findByEmail(email);
                 Session session = new Session("",usuario, new Date());
+                System.out.println(session);
                 sessionService.saveSession(session);
                 return usuario;
             }

@@ -32,4 +32,12 @@ public class ProdutoService {
         return this.produtoRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
+    public Produto findProdutoByIdItemCarrinho(long id) {
+        return this.produtoRepository.findProdutoByIdItemCarrinho(id);
+    }
+
+
+    public void removerQuantidadeProduto(Produto produto) {
+        this.produtoRepository.save(produto);
+    }
 }

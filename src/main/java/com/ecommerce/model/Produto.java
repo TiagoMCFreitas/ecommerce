@@ -49,6 +49,9 @@ public class Produto {
 
     }
 
+    public Produto(Long id, String nome, float preco, int i, String foto, TipoProduto tipoProduto) {
+    }
+
     public Long getId() {
         return id;
     }

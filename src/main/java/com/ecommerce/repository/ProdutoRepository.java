@@ -14,5 +14,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
             "INNER JOIN ItemCarrinho i ON i.produto.id = p.id " +
             "WHERE i.carrinho.id = :idCarrinho")
     List<CarrinhoGetItensDTO> findProdutosByCarrinhoId(@Param("idCarrinho") Long idCarrinho);
+
+    @Query("SELECT p FROM Produto p inner join ItemCarrinho c on p.id = c.produto.id where c.id = :idItemCarrinho")
+    Produto findProdutoByIdItemCarrinho(@Param("idItemCarrinho") Long id);
+
+
 }
 

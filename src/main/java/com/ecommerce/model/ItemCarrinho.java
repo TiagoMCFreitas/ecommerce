@@ -19,36 +19,29 @@ public class ItemCarrinho {
 
     @ManyToOne
     @JoinColumn(name = "id_carrinho", nullable = false)
-    @JsonBackReference
     private Carrinho carrinho;
 
     @ManyToOne
     @JoinColumn(name="id_produto", nullable = false)
     private Produto produto;
 
-
-    public ItemCarrinho(Long id, int quantidade, Carrinho carrinho, Produto produto) {
-        this.id = id;
-        this.quantidade = quantidade;
-        this.carrinho = carrinho;
-        this.produto = produto;
-    }
+    @Column(name="ativo")
+    private boolean ativo;
 
     public ItemCarrinho() {
-
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ItemCarrinho itemCarrinho = (ItemCarrinho) o;
-        return quantidade == itemCarrinho.quantidade && Objects.equals(id, itemCarrinho.id) && Objects.equals(carrinho, itemCarrinho.carrinho) && Objects.equals(produto, itemCarrinho.produto);
+        ItemCarrinho that = (ItemCarrinho) o;
+        return quantidade == that.quantidade && ativo == that.ativo && Objects.equals(id, that.id) && Objects.equals(carrinho, that.carrinho) && Objects.equals(produto, that.produto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantidade, carrinho, produto);
+        return Objects.hash(id, quantidade, carrinho, produto, ativo);
     }
 
     public Long getId() {
@@ -81,5 +74,21 @@ public class ItemCarrinho {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public ItemCarrinho(Long id, int quantidade, Carrinho carrinho, Produto produto, boolean ativo) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.carrinho = carrinho;
+        this.produto = produto;
+        this.ativo = ativo;
     }
 }

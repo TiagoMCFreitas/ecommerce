@@ -10,10 +10,10 @@ public class EnderecoPostDTO {
     private String numero;
     private String complemento;
     private String bairro;
-    private Long id_usuario;
+    private String session_token;
 
 
-    public EnderecoPostDTO(String cep, String rua, String cidade, String uf, String numero, String complemento, String bairro, Long id_usuario) {
+    public EnderecoPostDTO(String cep, String rua, String cidade, String uf, String numero, String complemento, String bairro, String session_token) {
         this.cep = cep;
         this.rua = rua;
         this.cidade = cidade;
@@ -21,7 +21,7 @@ public class EnderecoPostDTO {
         this.numero = numero;
         this.complemento = complemento;
         this.bairro = bairro;
-        this.id_usuario = id_usuario;
+        this.session_token = session_token;
     }
 
     public String getCep() {
@@ -80,12 +80,12 @@ public class EnderecoPostDTO {
         this.bairro = bairro;
     }
 
-    public Long getId_usuario() {
-        return id_usuario;
+    public String getSession() {
+        return session_token;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setSession(String session_token) {
+        this.session_token = session_token;
     }
 
     @Override
@@ -93,11 +93,11 @@ public class EnderecoPostDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EnderecoPostDTO that = (EnderecoPostDTO) o;
-        return Objects.equals(cep, that.cep) && Objects.equals(rua, that.rua) && Objects.equals(cidade, that.cidade) && Objects.equals(uf, that.uf) && Objects.equals(numero, that.numero) && Objects.equals(complemento, that.complemento) && Objects.equals(bairro, that.bairro) && Objects.equals(id_usuario, that.id_usuario);
+        return Objects.equals(cep, that.cep) && Objects.equals(rua, that.rua) && Objects.equals(cidade, that.cidade) && Objects.equals(uf, that.uf) && Objects.equals(numero, that.numero) && Objects.equals(complemento, that.complemento) && Objects.equals(bairro, that.bairro) && Objects.equals(session_token, that.session_token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cep, rua, cidade, uf, numero, complemento, bairro, id_usuario);
+        return Objects.hash(cep, rua, cidade, uf, numero, complemento, bairro, session_token);
     }
 }

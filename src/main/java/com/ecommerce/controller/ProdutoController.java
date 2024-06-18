@@ -45,6 +45,11 @@ public class ProdutoController {
     public Produto buscarPorId(@PathVariable(value = "id") Long id) {
         return this.produtoService.pegarProdutoPorId(id);
     }
+    @GetMapping("/item/{id}")
+    public Produto buscarProdutoPorIdItemCarrinho(@PathVariable(value = "id") Long id) {
+        return this.produtoService.findProdutoByIdItemCarrinho(id);
+    }
+
 
     @PostMapping("/")
     @Transactional

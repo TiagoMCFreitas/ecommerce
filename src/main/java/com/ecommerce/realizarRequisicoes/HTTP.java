@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class HTTP {
+public class    HTTP {
     public String getHttpGET(String urlToRead) {
         StringBuilder result = new StringBuilder();
 
