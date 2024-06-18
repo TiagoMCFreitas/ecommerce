@@ -18,6 +18,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     @Query("SELECT p FROM Produto p inner join ItemCarrinho c on p.id = c.produto.id where c.id = :idItemCarrinho")
     Produto findProdutoByIdItemCarrinho(@Param("idItemCarrinho") Long id);
 
-
+    @Query("SELECT p FROM Produto p where p.quantidade > 0")
+    List<Produto> pegarTodos();
 }
 

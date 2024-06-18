@@ -24,18 +24,18 @@ public class ProdutoController {
         return this.produtoService.pegarTodosProduto();
     }
 
-    @GetMapping("/preco")
+    @GetMapping("/gestor/preco")
     public List<Produto> listarPorPreco() throws Exception {
         OrdenaPorPrecoDesc ordena = new OrdenaPorPrecoDesc(this.produtoService);
         return ordena.listaProdutos();
     }
 
-    @GetMapping("/categoria")
+    @GetMapping("/gestor/categoria")
     public List<Produto> listarPorCategoria() throws Exception {
         OrdenaPorCategoria ordena = new OrdenaPorCategoria(this.produtoService);
         return ordena.listaProdutos();
     }
-    @GetMapping("/quantidade")
+    @GetMapping("/gestor/quantidade")
     public List<Produto> listarPorQuantidade() throws Exception {
         OrdenaPorQuantidadeDesc ordena = new OrdenaPorQuantidadeDesc(this.produtoService);
         return ordena.listaProdutos();
@@ -45,12 +45,15 @@ public class ProdutoController {
     public Produto buscarPorId(@PathVariable(value = "id") Long id) {
         return this.produtoService.pegarProdutoPorId(id);
     }
-    @GetMapping("/item/{id}")
+    @GetMapping("item/{id}")
     public Produto buscarProdutoPorIdItemCarrinho(@PathVariable(value = "id") Long id) {
         return this.produtoService.findProdutoByIdItemCarrinho(id);
     }
 
-
+    @GetMapping("/gestor/")
+    public List<Produto> listarPorGestor() throws Exception {
+        return this.produtoService.pegarTodosGestor();
+    }
     @PostMapping("/")
     @Transactional
     public Produto salvar(@RequestBody Produto produto) {

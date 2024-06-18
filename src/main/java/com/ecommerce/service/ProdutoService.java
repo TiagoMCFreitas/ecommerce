@@ -25,6 +25,10 @@ public class ProdutoService {
     }
 
     public List<Produto> pegarTodosProduto() {
+        return this.produtoRepository.pegarTodos();
+    }
+
+    public List<Produto> pegarTodosGestor(){
         return this.produtoRepository.findAll();
     }
 

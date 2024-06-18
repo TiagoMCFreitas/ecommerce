@@ -21,6 +21,8 @@ public class PedidoService {
     private EnderecoService enderecoService;
     @Autowired
     private ProdutoService produtoService;
+    @Autowired
+    private ItemPedidoService itemPedidoService;
 
     public Pedido salvar(PedidoPostDTO pedido) {
         Carrinho carrinho = carrinhoService.pegarCarrinhoPorId(pedido.getId_carrinho());
@@ -31,11 +33,8 @@ public class PedidoService {
             Produto prods = this.produtoService.findProdutoByIdItemCarrinho(pedido.getItemCarrinho().get(i).getId());
             prods.setQuantidade(prods.getQuantidade() - pedido.getItemCarrinho().get(i).getQuantidade());
             this.produtoService.removerQuantidadeProduto(prods);
-
-
         }
         return this.pedidoRepository.save(pedidoInserir);
-
     }
 
     public Pedido alterar(Pedido pedido) {
