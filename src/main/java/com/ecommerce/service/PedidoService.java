@@ -5,6 +5,7 @@ import com.ecommerce.Enum.TipoProduto;
 import com.ecommerce.Enum.TipoStatus;
 import com.ecommerce.model.*;
 import com.ecommerce.repository.PedidoRepository;
+import com.ecommerce.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class PedidoService {
     private ProdutoService produtoService;
     @Autowired
     private ItemPedidoService itemPedidoService;
+    @Autowired
+    private SessionRepository sessionRepository;
 
     public Pedido salvar(PedidoPostDTO pedido) {
         Carrinho carrinho = carrinhoService.pegarCarrinhoPorId(pedido.getId_carrinho());
@@ -53,5 +56,13 @@ public class PedidoService {
         return this.pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Item não encontrado"));
     }
 
+    public List<Pedido> pegarTodos(){
+        return this.pedidoRepository.findAll();
+    }
+
+    public List<Pedido> pegarPedidosUsuario(String session){
+        Session sessionUser = this.sessionRepository.getUserByIdSession(session);
+        return this.pedidoRepository.findByUsuario(sessionUser.getUsuario().getId());
+    }
 
 }
